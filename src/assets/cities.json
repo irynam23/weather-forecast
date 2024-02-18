@@ -1,0 +1,19 @@
+[
+  {
+    "id": "001",
+    "cityName": "London",
+    "image": " "
+  },
+
+  {
+    "id": "002",
+    "cityName": "Paris",
+    "image": " "
+  },
+
+  {
+    "id": "003",
+    "cityName": "New York",
+    "image": " "
+  }
+]

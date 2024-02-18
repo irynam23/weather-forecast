@@ -29,15 +29,47 @@ import {
 import { Modal } from "../../components/Modal/Modal";
 
 import { ReactComponent as Search } from "../../icons/search.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchWeather } from "../../servises/api";
+
+const initialTrips = JSON.parse(
+  localStorage.getItem("trips") ||
+    JSON.stringify([
+      { city: "London", date1: "2024-02-23", date2: "2024-03-20" },
+    ])
+);
 
 export const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [chosenIndex, setChosenIndex] = useState(0);
+  const [trips, setTrips] = useState(initialTrips);
+
+  useEffect(() => {
+    localStorage.setItem("trips", JSON.stringify(trips));
+  }, [trips]);
+
+  useEffect(() => {
+    const getWeather = async () => {
+      const { city, date1, date2 } = trips[chosenIndex];
+      const weather = await fetchWeather({ location: city, date1, date2 });
+      console.log(weather);
+    };
+    getWeather();
+  }, [chosenIndex, trips]);
 
   const handleSubmit = async ({ location, date1, date2 }) => {
-    const weather = await fetchWeather({ location, date1, date2 });
-    console.log(weather);
+    // const weather = await fetchWeather({ location, date1, date2 });
+    // console.log(weather);
+    setTrips((prevTrips) => {
+      return [
+        ...prevTrips,
+        {
+          city: location,
+          date1: date1,
+          date2: date2,
+        },
+      ];
+    });
   };
 
   return (
@@ -50,10 +82,20 @@ export const Main = () => {
           <StyledIcon>
             <Search width="24px" />
           </StyledIcon>
-          <StyledInput type="text" name="text" placeholder="Search your trip" />
+          <StyledInput type="text" name="city" placeholder="Search your trip" />
         </StyledInputWrapper>
         <StyledList>
-          <Card />
+          {trips.map((trip, index) => (
+            <Card
+              trip={trip}
+              key={index}
+              isActive={chosenIndex === index}
+              onCardClick={() => {
+                setChosenIndex(index);
+              }}
+            />
+          ))}
+
           <StyledButton onClick={() => setIsOpen(true)}>
             + <br /> Add trip
           </StyledButton>

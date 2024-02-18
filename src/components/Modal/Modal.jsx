@@ -37,6 +37,7 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit({ location, date1, date2 });
+            setIsOpen(false);
           }}
         >
           <StyledLabelCity>
@@ -73,11 +74,14 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
               }}
             />
           </StyledLabelEnd>
+
+          <StyledButtonBox>
+            <StyledButtonCancel type="button" onClick={() => setIsOpen(false)}>
+              Cancel
+            </StyledButtonCancel>
+            <StyledButtonSave type="submit">Save</StyledButtonSave>
+          </StyledButtonBox>
         </StyledForm>
-        <StyledButtonBox>
-          <StyledButtonCancel>Cancel</StyledButtonCancel>
-          <StyledButtonSave type="submit">Save</StyledButtonSave>
-        </StyledButtonBox>
       </StyledWrapper>
     </StyledContainer>
   );
