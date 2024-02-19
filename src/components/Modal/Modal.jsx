@@ -16,7 +16,7 @@ import {
   StyledWrapper,
 } from "./Modal.styled";
 
-import { ReactComponent as Cross } from "../../icons/cross.svg";
+import { ReactComponent as Cross } from "../../assets/icons/cross.svg";
 import { useState } from "react";
 
 export const Modal = ({ setIsOpen, handleSubmit }) => {

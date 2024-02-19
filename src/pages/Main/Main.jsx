@@ -1,36 +1,26 @@
-import { Card } from "../../components/Card/Card";
 import {
   StyledWrapper,
   StyledLeftPart,
   StyledInput,
   StyledList,
   StyledLine,
-  StyledRightPart,
   StyledHeader,
   StyledInputWrapper,
   StyledIcon,
   StyledButton,
-  StyledRightBox,
-  StyledRightTitle,
-  StyledRightTemp,
-  StyledRightCity,
-  StyledRightTimeBox,
-  StyledRightTimeItem,
-  StyledRightTime,
-  StyledRightText,
   StyledLineTitle,
   StyledLineList,
-  StyledLineItem,
-  StyledLineItemPic,
-  StyledLineItemText,
-  StyledLineItemTitle,
 } from "./Main.styled";
 
+import { Card } from "../../components/Card/Card";
 import { Modal } from "../../components/Modal/Modal";
+import { ForecastItem } from "../../components/ForecastItem/ForecastItem";
 
-import { ReactComponent as Search } from "../../icons/search.svg";
+import { ReactComponent as Search } from "../../assets/icons/search.svg";
+
 import { useEffect, useState } from "react";
-import { fetchWeather } from "../../servises/api";
+import { fetchWeather } from "../../services/api";
+import { RightPart } from "../../components/RightPart/RightPart";
 
 const initialTrips = JSON.parse(
   localStorage.getItem("trips") ||
@@ -43,6 +33,8 @@ export const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [chosenIndex, setChosenIndex] = useState(0);
   const [trips, setTrips] = useState(initialTrips);
+  const [tripForecast, setTripForecast] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     localStorage.setItem("trips", JSON.stringify(trips));
@@ -53,13 +45,12 @@ export const Main = () => {
       const { city, date1, date2 } = trips[chosenIndex];
       const weather = await fetchWeather({ location: city, date1, date2 });
       console.log(weather);
+      setTripForecast(weather.days);
     };
     getWeather();
   }, [chosenIndex, trips]);
 
   const handleSubmit = async ({ location, date1, date2 }) => {
-    // const weather = await fetchWeather({ location, date1, date2 });
-    // console.log(weather);
     setTrips((prevTrips) => {
       return [
         ...prevTrips,
@@ -82,19 +73,31 @@ export const Main = () => {
           <StyledIcon>
             <Search width="24px" />
           </StyledIcon>
-          <StyledInput type="text" name="city" placeholder="Search your trip" />
+          <StyledInput
+            type="text"
+            name="city"
+            placeholder="Search your trip"
+            value={search}
+            onChange={(evt) => {
+              setSearch(evt.target.value.trim());
+            }}
+          />
         </StyledInputWrapper>
         <StyledList>
-          {trips.map((trip, index) => (
-            <Card
-              trip={trip}
-              key={index}
-              isActive={chosenIndex === index}
-              onCardClick={() => {
-                setChosenIndex(index);
-              }}
-            />
-          ))}
+          {trips
+            .filter(({ city }) => {
+              return city.toLowerCase().includes(search.toLowerCase());
+            })
+            .map((trip, index) => (
+              <Card
+                trip={trip}
+                key={index}
+                isActive={chosenIndex === index}
+                onCardClick={() => {
+                  setChosenIndex(index);
+                }}
+              />
+            ))}
 
           <StyledButton onClick={() => setIsOpen(true)}>
             + <br /> Add trip
@@ -106,39 +109,22 @@ export const Main = () => {
         <StyledLine>
           <StyledLineTitle>Week</StyledLineTitle>
           <StyledLineList>
-            <StyledLineItem>
-              <StyledLineItemTitle>Day</StyledLineItemTitle>
-              <StyledLineItemPic />
-              <StyledLineItemText>00/00</StyledLineItemText>
-            </StyledLineItem>
+            {tripForecast.map(({ conditions, datetime, tempmax, tempmin }) => (
+              <ForecastItem
+                conditions={conditions}
+                datetime={datetime}
+                tempmax={tempmax}
+                tempmin={tempmin}
+                key={datetime}
+              />
+            ))}
           </StyledLineList>
         </StyledLine>
       </StyledLeftPart>
-      <StyledRightPart>
-        <StyledRightBox>
-          <StyledRightTitle>Day</StyledRightTitle>
-          <StyledRightTemp>00ºC</StyledRightTemp>
-          <StyledRightCity>City</StyledRightCity>
-        </StyledRightBox>
-        <StyledRightTimeBox>
-          <StyledRightTimeItem>
-            <StyledRightTime>00</StyledRightTime>
-            <StyledRightText>days</StyledRightText>
-          </StyledRightTimeItem>
-          <StyledRightTimeItem>
-            <StyledRightTime>00</StyledRightTime>
-            <StyledRightText>hours</StyledRightText>
-          </StyledRightTimeItem>
-          <StyledRightTimeItem>
-            <StyledRightTime>00</StyledRightTime>
-            <StyledRightText>minutes</StyledRightText>
-          </StyledRightTimeItem>
-          <StyledRightTimeItem>
-            <StyledRightTime>00</StyledRightTime>
-            <StyledRightText>seconds</StyledRightText>
-          </StyledRightTimeItem>
-        </StyledRightTimeBox>
-      </StyledRightPart>
+      <RightPart
+        city={trips[chosenIndex].city}
+        startDate={trips[chosenIndex].date1}
+      />
     </StyledWrapper>
   );
 };

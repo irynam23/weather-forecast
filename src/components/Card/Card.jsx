@@ -1,3 +1,4 @@
+import cities from "../../assets/cities";
 import {
   StyledData,
   StyledImage,
@@ -9,7 +10,9 @@ import {
 export const Card = ({ trip, onCardClick, isActive }) => {
   return (
     <StyledWrapper onClick={onCardClick} $isActive={isActive}>
-      <StyledImage></StyledImage>
+      <StyledImage>
+        <img alt={trip.city} src={cities[trip.city]} />
+      </StyledImage>
       <StyledTextWrapper>
         <StyledName>{trip.city}</StyledName>
         <StyledData>
