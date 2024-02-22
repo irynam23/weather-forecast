@@ -12,6 +12,8 @@ import {
   StyledLineList,
 } from "./Main.styled";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { Card } from "../../components/Card/Card";
 import { Modal } from "../../components/Modal/Modal";
 import { ForecastItem } from "../../components/ForecastItem/ForecastItem";
@@ -35,6 +37,8 @@ export const Main = () => {
   const [trips, setTrips] = useState(initialTrips);
   const [tripForecast, setTripForecast] = useState([]);
   const [search, setSearch] = useState("");
+
+  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     localStorage.setItem("trips", JSON.stringify(trips));
@@ -67,7 +71,22 @@ export const Main = () => {
     <StyledWrapper>
       <StyledLeftPart>
         <StyledHeader>
-          Weather<b> Forecast</b>
+          <p>
+            Weather<b> Forecast</b>
+          </p>
+          <div>
+            {isAuthenticated ? (
+              <button
+                onClick={() =>
+                  logout({ logoutParams: { returnTo: window.location.origin } })
+                }
+              >
+                Log Out
+              </button>
+            ) : (
+              <button onClick={() => loginWithRedirect()}>Log in</button>
+            )}
+          </div>
         </StyledHeader>
         <StyledInputWrapper>
           <StyledIcon>

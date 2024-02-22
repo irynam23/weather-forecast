@@ -5,10 +5,8 @@ import {
   StyledContainer,
   StyledForm,
   StyledIcon,
-  StyledInputCity,
   StyledInputEnd,
   StyledInputStart,
-  StyledLabelCity,
   StyledLabelEnd,
   StyledLabelStart,
   StyledTitle,
@@ -18,12 +16,16 @@ import {
 
 import { ReactComponent as Cross } from "../../assets/icons/cross.svg";
 import { useState } from "react";
+import Dropdown from "../Dropdown/Dropdown";
+import cities from "../../assets/cities";
 
 export const Modal = ({ setIsOpen, handleSubmit }) => {
   const [location, setLocation] = useState("");
   const [date1, setDate1] = useState("");
   const [date2, setDate2] = useState("");
+  const isValid = !!location && !!date1 && !!date2;
 
+  console.log(new Date(Date.now() + 1209600000).toISOString().split("T")[0]);
   return (
     <StyledContainer>
       <StyledWrapper>
@@ -36,27 +38,32 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
         <StyledForm
           onSubmit={(e) => {
             e.preventDefault();
+            if (!isValid) {
+              return;
+            }
             handleSubmit({ location, date1, date2 });
             setIsOpen(false);
           }}
         >
-          <StyledLabelCity>
-            * City
-            <StyledInputCity
-              type="text"
-              name="text"
-              placeholder="Please select a city"
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
-            />
-          </StyledLabelCity>
+          <p>* City</p>
+          <Dropdown
+            placeholder="Please select a city"
+            selectedOption={location}
+            onOptionChange={(option) => {
+              setLocation(option);
+            }}
+            options={Object.keys(cities)}
+          />
           <StyledLabelStart>
             * Start date
             <StyledInputStart
               type="date"
               name="data"
               placeholder="Select date"
+              min={new Date().toISOString().split("T")[0]}
+              max={
+                new Date(Date.now() + 1209600000).toISOString().split("T")[0]
+              }
               onChange={(e) => {
                 setDate1(e.target.value);
               }}
@@ -69,6 +76,10 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
               type="date"
               name="data"
               placeholder="Select date"
+              min={new Date().toISOString().split("T")[0]}
+              max={
+                new Date(Date.now() + 1209600000).toISOString().split("T")[0]
+              }
               onChange={(e) => {
                 setDate2(e.target.value);
               }}
@@ -79,7 +90,9 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
             <StyledButtonCancel type="button" onClick={() => setIsOpen(false)}>
               Cancel
             </StyledButtonCancel>
-            <StyledButtonSave type="submit">Save</StyledButtonSave>
+            <StyledButtonSave type="submit" disabled={!isValid}>
+              Save
+            </StyledButtonSave>
           </StyledButtonBox>
         </StyledForm>
       </StyledWrapper>

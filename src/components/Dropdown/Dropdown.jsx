@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import { StyledDropdown, StyledWrapper } from "./Dropdown.styled";
 
-const Dropdown = ({ options, selectedOption, onOptionChange }) => {
+import { ReactComponent as DropdownIcon } from "../../assets/icons/dropdown.svg";
+
+const Dropdown = ({ options, selectedOption, onOptionChange, placeholder }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
   useEffect(() => {
@@ -31,24 +34,13 @@ const Dropdown = ({ options, selectedOption, onOptionChange }) => {
   });
 
   return (
-    <div ref={ref} className="ui form">
-      <div className="field">
-        <label className="label">Select a Color</label>
-        <div
-          onClick={() => setOpen(!open)}
-          className={`ui selection dropdown ${open ? "visible active" : ""}`}
-        >
-          <i className="dropdown icon"></i>
-          <div className="text">{selectedOption}</div>
-          <div
-            onClick={() => setOpen(!open)}
-            className={`menu ${open ? "visible transition" : ""}`}
-          >
-            {mappedDropdownOptions}
-          </div>
-        </div>
+    <StyledWrapper ref={ref} $hasSelectedValue={!!selectedOption}>
+      <div className="field" onClick={() => setOpen(!open)}>
+        <div className="text">{selectedOption || placeholder}</div>
+        <DropdownIcon width={20} height={20} />
       </div>
-    </div>
+      <StyledDropdown $isOpen={open}>{mappedDropdownOptions}</StyledDropdown>
+    </StyledWrapper>
   );
 };
 

@@ -13,6 +13,8 @@ import {
 } from "./RightPart.styled";
 import { fetchCurrentWeather } from "../../services/api";
 
+import penguin from "../../assets/images/penguin.png";
+
 export const RightPart = ({ city, startDate }) => {
   const [timer, setTimer] = useState(null);
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -37,6 +39,9 @@ export const RightPart = ({ city, startDate }) => {
 
   return (
     <StyledRightPart>
+      <div className="img">
+        <img src={penguin} alt="penguin" />
+      </div>
       <StyledRightBox>
         <StyledRightTitle>{getDay()}</StyledRightTitle>
         <StyledRightTemp>

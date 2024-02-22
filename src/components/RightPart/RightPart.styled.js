@@ -5,9 +5,22 @@ export const StyledRightPart = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 500px;
+  padding-top: 40px;
+
+  & .img {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    padding-right: 40px;
+    margin-bottom: 100px;
+
+    & img {
+      height: 60px;
+      width: 60px;
+    }
+  }
 `;
 
 export const StyledRightBox = styled.div`
