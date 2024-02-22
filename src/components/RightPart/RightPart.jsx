@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { calcDiff, getDay } from "../../services/utils";
+import { calcDiff, getDay, getForecastIcon } from "../../services/utils";
 import {
   StyledRightPart,
   StyledRightBox,
@@ -39,7 +39,14 @@ export const RightPart = ({ city, startDate }) => {
     <StyledRightPart>
       <StyledRightBox>
         <StyledRightTitle>{getDay()}</StyledRightTitle>
-        <StyledRightTemp>{currentWeather?.temp || "-"} ºC</StyledRightTemp>
+        <StyledRightTemp>
+          <img
+            alt={currentWeather?.icon || "-"}
+            src={getForecastIcon(currentWeather?.icon)}
+          />
+          {currentWeather?.temp || "-"}
+          <sup>ºC</sup>
+        </StyledRightTemp>
         <StyledRightCity>{city}</StyledRightCity>
       </StyledRightBox>
       <StyledRightTimeBox>

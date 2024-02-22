@@ -1,4 +1,4 @@
-import { getDay } from "../../services/utils";
+import { getDay, getForecastIcon } from "../../services/utils";
 import {
   StyledLineItem,
   StyledLineItemPic,
@@ -10,9 +10,11 @@ export const ForecastItem = ({ conditions, datetime, tempmax, tempmin }) => {
   return (
     <StyledLineItem>
       <StyledLineItemTitle>{getDay(datetime)}</StyledLineItemTitle>
-      <StyledLineItemPic>{conditions}</StyledLineItemPic>
+      <StyledLineItemPic>
+        <img alt={conditions} src={getForecastIcon(conditions)} />
+      </StyledLineItemPic>
       <StyledLineItemText>
-        {tempmax} / {tempmin}
+        {tempmax}º/{tempmin}º
       </StyledLineItemText>
     </StyledLineItem>
   );

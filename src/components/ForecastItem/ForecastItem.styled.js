@@ -16,4 +16,5 @@ export const StyledLineItemPic = styled.div`
 
 export const StyledLineItemText = styled.p`
   margin-top: 25px;
+  font-size: 12px;
 `;

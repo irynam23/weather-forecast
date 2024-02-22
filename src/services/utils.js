@@ -31,3 +31,7 @@ export const calcDiff = (startDate) => {
   const seconds = Math.floor(minutesms / 1000);
   return { days, hours, minutes, seconds };
 };
+
+export const getForecastIcon = (conditions) => {
+  return `/icons/${conditions}.svg`;
+};

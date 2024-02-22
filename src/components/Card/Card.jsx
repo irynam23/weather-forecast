@@ -10,9 +10,7 @@ import {
 export const Card = ({ trip, onCardClick, isActive }) => {
   return (
     <StyledWrapper onClick={onCardClick} $isActive={isActive}>
-      <StyledImage>
-        <img alt={trip.city} src={cities[trip.city]} />
-      </StyledImage>
+      <StyledImage $bgUrl={cities[trip.city]}></StyledImage>
       <StyledTextWrapper>
         <StyledName>{trip.city}</StyledName>
         <StyledData>

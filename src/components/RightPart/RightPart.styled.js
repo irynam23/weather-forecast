@@ -5,9 +5,9 @@ export const StyledRightPart = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
-  padding: 300px 90px;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
 `;
 
 export const StyledRightBox = styled.div`
@@ -19,16 +19,25 @@ export const StyledRightBox = styled.div`
 `;
 
 export const StyledRightTitle = styled.h3`
-  font-size: 48px;
+  font-size: 36px;
 `;
 
-export const StyledRightTemp = styled.p`
-  font-size: 84px;
+export const StyledRightTemp = styled.div`
+  font-size: 72px;
   font-weight: 250;
+  display: flex;
+
+  & img {
+    width: 84px;
+  }
+
+  & sup {
+    font-size: 24px;
+  }
 `;
 
 export const StyledRightCity = styled.h4`
-  font-size: 42px;
+  font-size: 36px;
   font-weight: 250;
 `;
 

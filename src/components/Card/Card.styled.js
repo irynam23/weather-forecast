@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  width: 245px;
+  min-width: 245px;
   height: 325px;
   border: 1px solid ${({ $isActive }) => ($isActive ? "#63C5DA" : "#F0F0F0")};
 `;
@@ -10,6 +10,9 @@ export const StyledImage = styled.div`
   background-color: cyan;
   width: 100%;
   height: 225px;
+  background-image: url(${({ $bgUrl }) => $bgUrl});
+  background-size: cover;
+  background-position: center;
 `;
 
 export const StyledTextWrapper = styled.div`

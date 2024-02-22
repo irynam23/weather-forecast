@@ -109,9 +109,9 @@ export const Main = () => {
         <StyledLine>
           <StyledLineTitle>Week</StyledLineTitle>
           <StyledLineList>
-            {tripForecast.map(({ conditions, datetime, tempmax, tempmin }) => (
+            {tripForecast.map(({ icon, datetime, tempmax, tempmin }) => (
               <ForecastItem
-                conditions={conditions}
+                conditions={icon}
                 datetime={datetime}
                 tempmax={tempmax}
                 tempmin={tempmin}

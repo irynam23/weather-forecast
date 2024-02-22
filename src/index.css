@@ -37,3 +37,9 @@ code {
 textarea:focus {
   outline: none !important;
 }
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

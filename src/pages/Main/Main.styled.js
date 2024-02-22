@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  /* display: grid;
+  grid-template-columns: 2fr 1fr; */
+  display: flex;
 `;
 export const StyledLeftPart = styled.div`
   padding: 40px;
   color: black;
+  width: calc(100% - 500px);
 `;
 
 export const StyledHeader = styled.h1`
@@ -42,11 +44,13 @@ export const StyledIcon = styled.div``;
 export const StyledList = styled.div`
   margin-top: 60px;
   display: flex;
+  /* max-width: 60vw; */
+  overflow-x: scroll;
   gap: 70px;
 `;
 
 export const StyledButton = styled.button`
-  width: 245px;
+  min-width: 245px;
   height: 225px;
   font-size: 18px;
   border: none;
@@ -64,4 +68,9 @@ export const StyledLineTitle = styled.h3`
 
 export const StyledLineList = styled.ul`
   margin-top: 70px;
+  display: flex;
+  max-width: 50vw;
+  overflow-x: scroll;
+  gap: 20px;
+  padding-bottom: 20px;
 `;
