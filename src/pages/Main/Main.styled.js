@@ -1,18 +1,57 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  /* display: grid;
-  grid-template-columns: 2fr 1fr; */
   display: flex;
+
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
 `;
 export const StyledLeftPart = styled.div`
   padding: 40px;
   color: black;
-  width: calc(100% - 500px);
+  width: calc(100vw - 460px);
+
+  @media screen and (max-width: 1023px) {
+    width: auto;
+  }
+
+  @media screen and (max-width: 424px) {
+    padding: 10px;
+  }
 `;
 
 export const StyledHeader = styled.h1`
   font-weight: normal;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const StyledTitle = styled.div``;
+
+export const StyledLog = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+`;
+
+export const StyledName = styled.span`
+  font-size: 16px;
+`;
+
+export const StyledBtn = styled.button`
+  display: block;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 16px;
+  border: 1px solid #f0f0f0;
+  padding: 4px;
+  &:hover {
+    border: 1px solid #63c5da;
+  }
 `;
 
 export const StyledInputWrapper = styled.label`
@@ -24,6 +63,11 @@ export const StyledInputWrapper = styled.label`
   gap: 10px;
   background-color: #f0f0f0;
   border-radius: 10px;
+  width: 300px;
+
+  @media screen and (max-width: 424px) {
+    width: auto;
+  }
 `;
 
 export const StyledInput = styled.input`
@@ -44,9 +88,10 @@ export const StyledIcon = styled.div``;
 export const StyledList = styled.div`
   margin-top: 60px;
   display: flex;
-  /* max-width: 60vw; */
   overflow-x: scroll;
+  overflow-y: hidden;
   gap: 70px;
+  padding-bottom: 16px;
 `;
 
 export const StyledButton = styled.button`
@@ -69,8 +114,12 @@ export const StyledLineTitle = styled.h3`
 export const StyledLineList = styled.ul`
   margin-top: 70px;
   display: flex;
-  max-width: 50vw;
+  max-width: 52vw;
   overflow-x: scroll;
   gap: 20px;
   padding-bottom: 20px;
+
+  @media screen and (max-width: 1023px) {
+    max-width: 90vw;
+  }
 `;

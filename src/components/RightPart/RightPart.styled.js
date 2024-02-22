@@ -1,18 +1,22 @@
 import styled from "styled-components";
 
 export const StyledRightPart = styled.div`
-  background-color: #110e3b;
+  background-color: rgba(8, 3, 70, 0.8);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
+  width: 460px;
   padding-top: 40px;
 
+  @media screen and (max-width: 1023px) {
+    width: auto;
+    padding-bottom: 40px;
+  }
+
   & .img {
-    display: flex;
-    width: 100%;
-    justify-content: end;
+    align-self: flex-end;
+
     padding-right: 40px;
     margin-bottom: 100px;
 
@@ -42,6 +46,7 @@ export const StyledRightTemp = styled.div`
 
   & img {
     width: 84px;
+    margin-right: 10px;
   }
 
   & sup {
@@ -58,6 +63,10 @@ export const StyledRightTimeBox = styled.ul`
   margin-top: 200px;
   display: flex;
   gap: 30px;
+
+  @media screen and (max-width: 1023px) {
+    margin-top: 50px;
+  }
 `;
 
 export const StyledRightTimeItem = styled.li`
@@ -70,6 +79,10 @@ export const StyledRightTimeItem = styled.li`
 export const StyledRightTime = styled.p`
   font-size: 36px;
   font-weight: 800;
+
+  @media screen and (max-width: 424px) {
+    font-size: 24px;
+  }
 `;
 
 export const StyledRightText = styled.p`

@@ -10,6 +10,10 @@ import {
   StyledButton,
   StyledLineTitle,
   StyledLineList,
+  StyledTitle,
+  StyledLog,
+  StyledBtn,
+  StyledName,
 } from "./Main.styled";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -27,7 +31,11 @@ import { RightPart } from "../../components/RightPart/RightPart";
 const initialTrips = JSON.parse(
   localStorage.getItem("trips") ||
     JSON.stringify([
-      { city: "London", date1: "2024-02-23", date2: "2024-03-20" },
+      {
+        city: "London",
+        date1: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+        date2: new Date(Date.now() + 432000000).toISOString().split("T")[0],
+      },
     ])
 );
 
@@ -54,6 +62,14 @@ export const Main = () => {
     getWeather();
   }, [chosenIndex, trips]);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isOpen]);
+
   const handleSubmit = async ({ location, date1, date2 }) => {
     setTrips((prevTrips) => {
       return [
@@ -71,22 +87,25 @@ export const Main = () => {
     <StyledWrapper>
       <StyledLeftPart>
         <StyledHeader>
-          <p>
+          <StyledTitle>
             Weather<b> Forecast</b>
-          </p>
-          <div>
+          </StyledTitle>
+          <StyledLog>
+            {isAuthenticated && user ? (
+              <StyledName>Hi, dear {user.name || user.email}!</StyledName>
+            ) : null}
             {isAuthenticated ? (
-              <button
+              <StyledBtn
                 onClick={() =>
                   logout({ logoutParams: { returnTo: window.location.origin } })
                 }
               >
                 Log Out
-              </button>
+              </StyledBtn>
             ) : (
-              <button onClick={() => loginWithRedirect()}>Log in</button>
+              <StyledBtn onClick={() => loginWithRedirect()}>Log in</StyledBtn>
             )}
-          </div>
+          </StyledLog>
         </StyledHeader>
         <StyledInputWrapper>
           <StyledIcon>
@@ -106,6 +125,9 @@ export const Main = () => {
           {trips
             .filter(({ city }) => {
               return city.toLowerCase().includes(search.toLowerCase());
+            })
+            .sort((a, b) => {
+              return a.date1.localeCompare(b.date1);
             })
             .map((trip, index) => (
               <Card

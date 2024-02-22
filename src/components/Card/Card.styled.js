@@ -4,6 +4,7 @@ export const StyledWrapper = styled.div`
   min-width: 245px;
   height: 325px;
   border: 1px solid ${({ $isActive }) => ($isActive ? "#63C5DA" : "#F0F0F0")};
+  cursor: pointer;
 `;
 
 export const StyledImage = styled.div`

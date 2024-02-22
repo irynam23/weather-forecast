@@ -9,7 +9,7 @@ export const StyledLineItemTitle = styled.p`
 
 export const StyledLineItemPic = styled.div`
   margin-top: 30px;
-  background-color: cyan;
+
   width: 55px;
   height: 55px;
 `;

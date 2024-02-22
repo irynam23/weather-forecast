@@ -25,9 +25,8 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
   const [date2, setDate2] = useState("");
   const isValid = !!location && !!date1 && !!date2;
 
-  console.log(new Date(Date.now() + 1209600000).toISOString().split("T")[0]);
   return (
-    <StyledContainer>
+    <StyledContainer onClick={() => setIsOpen(false)}>
       <StyledWrapper>
         <StyledTitleBox>
           <StyledTitle>Create trip</StyledTitle>
