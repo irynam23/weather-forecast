@@ -22,6 +22,9 @@ export const getDay = (dateTime) => {
 export const calcDiff = (startDate) => {
   const date = new Date(startDate);
   const ms = date.getTime() - Date.now();
+  if (ms < 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
   const daysms = ms % (24 * 60 * 60 * 1000);
   const hours = Math.floor(daysms / (60 * 60 * 1000));

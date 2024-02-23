@@ -14,6 +14,7 @@ import {
   StyledLog,
   StyledBtn,
   StyledName,
+  StyledInputLabel,
 } from "./Main.styled";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -24,7 +25,7 @@ import { ForecastItem } from "../../components/ForecastItem/ForecastItem";
 
 import { ReactComponent as Search } from "../../assets/icons/search.svg";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchWeather } from "../../services/api";
 import { RightPart } from "../../components/RightPart/RightPart";
 
@@ -45,6 +46,7 @@ export const Main = () => {
   const [trips, setTrips] = useState(initialTrips);
   const [tripForecast, setTripForecast] = useState([]);
   const [search, setSearch] = useState("");
+  const ref = React.useRef(null);
 
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
@@ -56,7 +58,6 @@ export const Main = () => {
     const getWeather = async () => {
       const { city, date1, date2 } = trips[chosenIndex];
       const weather = await fetchWeather({ location: city, date1, date2 });
-      console.log(weather);
       setTripForecast(weather.days);
     };
     getWeather();
@@ -81,6 +82,12 @@ export const Main = () => {
         },
       ];
     });
+  };
+
+  const handleScroll = (offset) => {
+    if (ref.current) {
+      ref.current.scrollBy({ left: offset, behavior: "smooth" });
+    }
   };
 
   return (
@@ -108,20 +115,33 @@ export const Main = () => {
           </StyledLog>
         </StyledHeader>
         <StyledInputWrapper>
-          <StyledIcon>
-            <Search width="24px" />
-          </StyledIcon>
-          <StyledInput
-            type="text"
-            name="city"
-            placeholder="Search your trip"
-            value={search}
-            onChange={(evt) => {
-              setSearch(evt.target.value.trim());
+          <StyledInputLabel>
+            <StyledIcon>
+              <Search width="24px" />
+            </StyledIcon>
+            <StyledInput
+              type="text"
+              name="city"
+              placeholder="Search your trip"
+              value={search}
+              onChange={(evt) => {
+                setSearch(evt.target.value.trim());
+              }}
+            />
+          </StyledInputLabel>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: "50px",
+              marginBottom: "30px",
             }}
-          />
+          >
+            <StyledBtn onClick={() => handleScroll(-200)}>Prev</StyledBtn>
+            <StyledBtn onClick={() => handleScroll(200)}>Next</StyledBtn>
+          </div>
         </StyledInputWrapper>
-        <StyledList>
+        <StyledList ref={ref}>
           {trips
             .filter(({ city }) => {
               return city.toLowerCase().includes(search.toLowerCase());

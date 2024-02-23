@@ -26,7 +26,13 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
   const isValid = !!location && !!date1 && !!date2;
 
   return (
-    <StyledContainer onClick={() => setIsOpen(false)}>
+    <StyledContainer
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setIsOpen(false);
+        }
+      }}
+    >
       <StyledWrapper>
         <StyledTitleBox>
           <StyledTitle>Create trip</StyledTitle>
@@ -67,7 +73,6 @@ export const Modal = ({ setIsOpen, handleSubmit }) => {
                 setDate1(e.target.value);
               }}
             />
-            {/* <StyledInputBox>Select date</StyledInputBox> */}
           </StyledLabelStart>
           <StyledLabelEnd>
             * End date

@@ -54,8 +54,20 @@ export const StyledBtn = styled.button`
   }
 `;
 
-export const StyledInputWrapper = styled.label`
-  margin-top: 70px;
+export const StyledInputWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 40px;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 20px;
+  }
+`;
+
+export const StyledInputLabel = styled.label`
   position: relative;
   display: flex;
   align-items: center;
@@ -86,12 +98,16 @@ export const StyledInput = styled.input`
 export const StyledIcon = styled.div``;
 
 export const StyledList = styled.div`
-  margin-top: 60px;
+  margin-top: 40px;
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
-  gap: 70px;
-  padding-bottom: 16px;
+  gap: 40px;
+  padding-bottom: 30px;
+  @media screen and (max-width: 767px) {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
 `;
 
 export const StyledButton = styled.button`
@@ -103,7 +119,7 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledLine = styled.div`
-  margin-top: 46px;
+  margin-top: 20px;
 `;
 
 export const StyledLineTitle = styled.h3`
@@ -112,7 +128,7 @@ export const StyledLineTitle = styled.h3`
 `;
 
 export const StyledLineList = styled.ul`
-  margin-top: 70px;
+  margin-top: 40px;
   display: flex;
   max-width: 52vw;
   overflow-x: scroll;
@@ -121,5 +137,9 @@ export const StyledLineList = styled.ul`
 
   @media screen and (max-width: 1023px) {
     max-width: 90vw;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-top: 20px;
   }
 `;

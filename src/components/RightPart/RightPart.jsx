@@ -32,7 +32,6 @@ export const RightPart = ({ city, startDate }) => {
     const getWeather = async () => {
       const weather = await fetchCurrentWeather(city);
       setCurrentWeather(weather.days[0]);
-      console.log(weather);
     };
     getWeather();
   }, [city]);
